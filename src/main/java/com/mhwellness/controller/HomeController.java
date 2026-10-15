@@ -2,7 +2,11 @@ package com.mhwellness.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import com.mhwellness.dto.MessageRequest;
 import com.mhwellness.dto.StatusResponse;
+
 @RestController
 @RequestMapping("/api/v1")
 public class HomeController {
@@ -36,5 +40,18 @@ public class HomeController {
         );
 
         return statusResponse;
+    }
+    // Receives JSON from the HTTP request body.
+    // Spring deserializes the JSON into a
+    // MessageRequest object.
+    @PostMapping("/message")
+    /**
+     * Take the body of the incoming HTTP request
+     * deserialize its JSON, and give me the
+     * resulting MessageRequest object through
+     * this parameter.
+     */
+    public String message(@RequestBody MessageRequest request){
+        return "Received: " + request.getMessage();
     }
 }
