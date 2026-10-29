@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.mhwellness.dto.MessageRequest;
 import com.mhwellness.dto.StatusResponse;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -44,14 +45,14 @@ public class HomeController {
     // Receives JSON from the HTTP request body.
     // Spring deserializes the JSON into a
     // MessageRequest object.
-    @PostMapping("/message")
     /**
      * Take the body of the incoming HTTP request
      * deserialize its JSON, and give me the
      * resulting MessageRequest object through
      * this parameter.
      */
-    public String message(@RequestBody MessageRequest request){
-        return "Received: " + request.getMessage();
+    @PostMapping("/message")
+    public String message(@Valid @RequestBody MessageRequest request){
+        return "Received: " + request.getMessage().strip();
     }
 }
